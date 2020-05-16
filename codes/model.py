@@ -436,6 +436,7 @@ class KGEModel(nn.Module):
                            #ranking + 1 is the true ranking used in evaluation metrics
                             ranking = 1 + ranking.item()
 #                            print('ranking: ', rank_10)
+#
 
                             logs.append({
                                 'MRR': 1.0/ranking,
