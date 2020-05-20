@@ -403,7 +403,6 @@ def main(args):
 #            relation.append(id2relation[i[1]])
 #            e2.append(id2entity[i[2]])
             
-
 # #        output_dict = {'e1': e1, 'relation': relation, 'e2':e2, 'predictions': entity_10, 'embeddings': emb}
 #        output_dict = {'e1': e1, 'embeddings': emb}
 #        df = pd.DataFrame(data=output_dict)
