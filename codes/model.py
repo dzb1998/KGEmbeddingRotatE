@@ -399,23 +399,17 @@ class KGEModel(nn.Module):
                             filter_bias = filter_bias.cuda()
 
                         batch_size = positive_sample.size(0)
-#                        print('pos: ', positive_sample.size(), positive_sample)
-#                        print('neg: ', negative_sample.size(), negative_sample)
-#                        print('fb: ', filter_bias.size(), filter_bias)
 
                         if flag==True:
                             score, embeddings = model((positive_sample, negative_sample), flag, mode)
                         else:
                             score = model((positive_sample, negative_sample), False, mode)
-#                        print('score: ', score.size(), score)
                         score += filter_bias
                         wei = model.entity_embedding
-                        #print(wei.size(), wei)
                         wei = wei.tolist()                        
 
                         #Explicitly sort all the entities to ensure that there is no test exposure bias
                         argsort = torch.argsort(score, dim = 1, descending=True)
-#                        print('argsort: ', argsort.size(), argsort)
 
                         if mode == 'head-batch':
                             positive_arg = positive_sample[:, 0]
@@ -432,13 +426,8 @@ class KGEModel(nn.Module):
                                 positive.append(positive_sample[i].tolist())
                                 rank_10.append(argsort[i,:10].tolist())
                                 emb.append(embeddings[i].tolist())
-#                                print('emb: ', embeddings[i].size(), embeddings[i])
-                            #    score_emb.append((torch.round(score[i]*10**4)/10**4).tolist())
-#                                print(score[i].tolist())
                            #ranking + 1 is the true ranking used in evaluation metrics
                             ranking = 1 + ranking.item()
-#                            print('ranking: ', rank_10)
-#
 
                             logs.append({
                                 'MRR': 1.0/ranking,

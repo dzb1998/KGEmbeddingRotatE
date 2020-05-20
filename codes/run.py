@@ -382,13 +382,14 @@ def main(args):
         
         metrics, positive, rank, rank_10, emb = kge_model.test_step(kge_model, test_triples, all_true_triples, args, True)
         log_metrics('Test', step, metrics)
+
+# output file rank_10 hit_3
 #        print(len(emb), len(emb[0]))
 #        # change rank_10 to entity_10
 #        entity_10 = []
 #        for i in rank_10:
 #            e = []
 #            for j in i:
-# #                print(j)
 #                e.append(id2entity[j])
 #            entity_10.append(e)
 #        e1 = []
