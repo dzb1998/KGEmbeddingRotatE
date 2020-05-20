@@ -374,33 +374,48 @@ def main(args):
 
     if args.do_test:
         logging.info('Evaluating on Test Dataset...')
+
+        ent = []
+        for i in id2entity.keys():
+            print(i, id2entity[i])
+            ent.append(id2entity[i])
+        
         metrics, positive, rank, rank_10, emb = kge_model.test_step(kge_model, test_triples, all_true_triples, args, True)
         log_metrics('Test', step, metrics)
-        print(len(emb), len(emb[0]))
-        # change rank_10 to entity_10
-        entity_10 = []
-        for i in rank_10:
-            e = []
-            for j in i:
-#                print(j)
-                e.append(id2entity[j])
-            entity_10.append(e)
-        e1 = []
-        relation = []
-        e2 = []
+#        print(len(emb), len(emb[0]))
+#        # change rank_10 to entity_10
+#        entity_10 = []
+#        for i in rank_10:
+#            e = []
+#            for j in i:
+# #                print(j)
+#                e.append(id2entity[j])
+#            entity_10.append(e)
+#        e1 = []
+#        relation = []
+#        e2 = []
         
 #        print(positive)
-        for i in positive:
+#        for i in positive:
 #            print(i)
-            e1.append(id2entity[i[0]])
-            relation.append(id2relation[i[1]])
-            e2.append(id2entity[i[2]])
+#            e1.append(id2entity[i[0]])
+#            relation.append(id2relation[i[1]])
+#            e2.append(id2entity[i[2]])
             
 
-#        output_dict = {'e1': e1, 'relation': relation, 'e2':e2, 'predictions': entity_10, 'embeddings': emb}
-        output_dict = {'e1': e1, 'embeddings': emb}
+# #        output_dict = {'e1': e1, 'relation': relation, 'e2':e2, 'predictions': entity_10, 'embeddings': emb}
+#        output_dict = {'e1': e1, 'embeddings': emb}
+#        df = pd.DataFrame(data=output_dict)
+#        df.to_csv('output.csv')
+
+        ent = []
+        for i in id2entity.keys():
+            print(i, id2entity[i])
+            ent.append(id2entity[i])
+        output_dict = {'e1': ent, 'embeddings': emb}
         df = pd.DataFrame(data=output_dict)
         df.to_csv('output.csv')
+
     
     if args.evaluate_train:
         logging.info('Evaluating on Training Dataset...')

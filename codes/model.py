@@ -409,7 +409,9 @@ class KGEModel(nn.Module):
                             score = model((positive_sample, negative_sample), False, mode)
 #                        print('score: ', score.size(), score)
                         score += filter_bias
-                        
+                        wei = model.entity_embedding
+                        #print(wei.size(), wei)
+                        wei = wei.tolist()                        
 
                         #Explicitly sort all the entities to ensure that there is no test exposure bias
                         argsort = torch.argsort(score, dim = 1, descending=True)
@@ -456,6 +458,6 @@ class KGEModel(nn.Module):
                 metrics[metric] = sum([log[metric] for log in logs])/len(logs)
 
         if flag == True:
-            return metrics, positive, rank, rank_10, emb
+            return metrics, positive, rank, rank_10, wei
 
         return metrics
